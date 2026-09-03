@@ -321,11 +321,13 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           <span
             className={`connection-dot connection-dot--${webMcpStatus}`}
           />
-          {webMcpStatus === "ready"
-            ? "6 WebMCP tools ready"
-            : webMcpStatus === "checking"
-              ? "Connecting WebMCP"
-              : "Browser preview"}
+          <span aria-live="polite">
+            {webMcpStatus === "ready"
+              ? "6 WebMCP tools ready"
+              : webMcpStatus === "checking"
+                ? "Connecting WebMCP"
+                : "Browser preview"}
+          </span>
         </div>
       </header>
 
@@ -361,6 +363,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
                   className={preference === item ? "is-active" : ""}
                   key={item}
                   onClick={() => selectPreference(item)}
+                  aria-pressed={preference === item}
                   type="button"
                 >
                   {item === "value"
@@ -488,7 +491,10 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           </div>
 
           {agreement && (
-            <section className={`approval-panel approval-panel--${agreement.status.toLowerCase()}`}>
+            <section
+              aria-live="polite"
+              className={`approval-panel approval-panel--${agreement.status.toLowerCase()}`}
+            >
               <div>
                 <p className="section-label">Human decision required</p>
                 <h2>
@@ -538,7 +544,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
             <span className="live-indicator">Live</span>
           </div>
 
-          <div className="timeline">
+          <div className="timeline" aria-live="polite">
             {activities.map((activity, index) => (
               <div
                 className={`timeline-item${index === 0 ? " timeline-item--active" : " timeline-item--complete"}`}
