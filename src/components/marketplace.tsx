@@ -19,12 +19,15 @@ import type {
   Negotiation,
 } from "@/lib/negotiation/types";
 import {
+  recommendDeal,
+  type DealPreference,
+} from "@/lib/recommendation/service";
+import {
   registerCounterpartyTools,
   type CounterpartyToolActions,
 } from "@/webmcp/register";
 import { ProductCard } from "./product-card";
 
-type Preference = "value" | "warranty" | "delivery";
 type Activity = {
   id: number;
   actor: "AGENT" | "HUMAN" | "SYSTEM";
@@ -72,7 +75,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
     {},
   );
   const [agreement, setAgreement] = useState<Agreement | null>(null);
-  const [preference, setPreference] = useState<Preference>("value");
+  const [preference, setPreference] = useState<DealPreference>("value");
   const [webMcpStatus, setWebMcpStatus] = useState<
     "checking" | "ready" | "unsupported"
   >("checking");
@@ -176,6 +179,11 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
     },
     getNegotiations: () => {
       const active = Object.values(negotiationsRef.current);
+      const recommendation = recommendDeal(
+        active,
+        products,
+        preferenceRef.current,
+      );
       recordActivity(
         "AGENT",
         "get_negotiations",
@@ -185,6 +193,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       return {
         humanPreference: preferenceRef.current,
         negotiations: active,
+        recommendation,
         instruction:
           "Respect the current human preference when recommending an offer.",
       };
@@ -262,8 +271,13 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
 
   const activeNegotiations = Object.values(negotiations);
   const productById = new Map(products.map((product) => [product.id, product]));
+  const recommendation = recommendDeal(
+    activeNegotiations,
+    products,
+    preference,
+  );
 
-  const selectPreference = (nextPreference: Preference) => {
+  const selectPreference = (nextPreference: DealPreference) => {
     preferenceRef.current = nextPreference;
     setPreference(nextPreference);
     recordActivity(
@@ -385,6 +399,20 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
 
           {activeNegotiations.length > 0 && (
             <div className="negotiation-board">
+              {recommendation && (
+                <div className="recommendation">
+                  <span className="recommendation__label">
+                    Recommended for {preference}
+                  </span>
+                  <div>
+                    <strong>{recommendation.product.name}</strong>
+                    <p>{recommendation.reason}</p>
+                  </div>
+                  <span className="recommendation__price">
+                    {money(recommendation.negotiation.currentOffer.price)}
+                  </span>
+                </div>
+              )}
               {activeNegotiations.map((negotiation) => {
                 const product = productById.get(negotiation.productId);
                 if (!product) return null;

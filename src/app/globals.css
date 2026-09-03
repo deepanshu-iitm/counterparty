@@ -299,6 +299,45 @@ a {
   margin-bottom: 24px;
 }
 
+.recommendation {
+  align-items: center;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: auto 1fr auto;
+  padding: 15px 17px;
+}
+
+.recommendation__label {
+  color: var(--accent-strong);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.recommendation strong {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.recommendation p {
+  color: var(--accent-strong);
+  font-size: 10px;
+  margin: 0;
+}
+
+.recommendation__price {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
 .negotiation-card {
   background: var(--ink);
   border-radius: 14px;
@@ -752,6 +791,15 @@ a {
 
   .approval-panel {
     grid-template-columns: 1fr;
+  }
+
+  .recommendation {
+    grid-template-columns: 1fr auto;
+  }
+
+  .recommendation__label {
+    grid-column: 1 / -1;
+    writing-mode: horizontal-tb;
   }
 
   .approval-actions,
