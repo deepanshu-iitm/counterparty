@@ -55,7 +55,9 @@ export function searchProducts(search: ProductSearch = {}): ProductWithSeller[] 
 
       return (
         (!normalizedQuery || searchableText.includes(normalizedQuery)) &&
-        (search.maxPrice === undefined || product.listPrice <= search.maxPrice) &&
+        (search.maxPrice === undefined ||
+          product.listPrice <=
+            search.maxPrice * (product.negotiable ? 1.1 : 1)) &&
         (search.minimumRamGb === undefined ||
           product.specs.ramGb >= search.minimumRamGb) &&
         (search.minimumWarrantyMonths === undefined ||

@@ -24,7 +24,8 @@ const searchProductsSchema = {
     maxPrice: {
       type: "number",
       minimum: 1,
-      description: "Maximum listed price in USD.",
+      description:
+        "Target final purchase budget in USD. Negotiable listings up to 10% above it may be returned as candidates.",
     },
     minimumRamGb: {
       type: "integer",
