@@ -1,103 +1,124 @@
-import Image from "next/image";
+import { ProductCard } from "@/components/product-card";
+import { searchProducts } from "@/lib/catalog/service";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const products = searchProducts({
+    minimumRamGb: 32,
+    sortBy: "value",
+  });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <main className="app-shell">
+      <header className="topbar">
+        <a className="brand" href="#" aria-label="Counterparty home">
+          <span className="brand-mark">C</span>
+          <span>Counterparty</span>
+        </a>
+        <div className="topbar__center">Agent-native commerce protocol</div>
+        <div className="connection-status">
+          <span className="connection-dot" />
+          WebMCP ready
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </header>
+
+      <section className="workspace">
+        <aside className="rail">
+          <div>
+            <p className="section-label">Mission</p>
+            <h1>Find the right machine. Negotiate the right terms.</h1>
+            <p className="rail__copy">
+              Your agent handles repetitive bargaining. You remain the authority
+              on every commitment.
+            </p>
+          </div>
+
+          <div className="brief">
+            <div className="brief__header">
+              <span>Active brief</span>
+              <span className="brief__status">Draft</span>
+            </div>
+            <p>Development laptop</p>
+            <ul>
+              <li>Budget up to $1,800</li>
+              <li>At least 32 GB memory</li>
+              <li>Strong warranty preferred</li>
+            </ul>
+          </div>
+
+          <div className="authority-note">
+            <span className="authority-note__icon">◆</span>
+            <div>
+              <strong>You hold final authority</strong>
+              <p>The agent can negotiate, but it cannot commit a deal.</p>
+            </div>
+          </div>
+        </aside>
+
+        <section className="marketplace">
+          <div className="marketplace__heading">
+            <div>
+              <p className="section-label">Qualified matches</p>
+              <h2>Three counterparties, three strategies</h2>
+            </div>
+            <span className="result-count">{products.length} live offers</span>
+          </div>
+
+          <div className="product-list">
+            {products.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                featured={index === 0}
+              />
+            ))}
+          </div>
+        </section>
+
+        <aside className="activity-panel">
+          <div className="activity-panel__header">
+            <div>
+              <p className="section-label">Agent activity</p>
+              <h2>Live trail</h2>
+            </div>
+            <span className="live-indicator">Live</span>
+          </div>
+
+          <div className="timeline">
+            <div className="timeline-item timeline-item--complete">
+              <span className="timeline-item__marker" />
+              <div>
+                <span className="timeline-item__time">12:40:02</span>
+                <strong>Brief understood</strong>
+                <p>Budget and hard constraints extracted.</p>
+              </div>
+            </div>
+            <div className="timeline-item timeline-item--active">
+              <span className="timeline-item__marker" />
+              <div>
+                <span className="timeline-item__time">12:40:04</span>
+                <strong>Catalog ready</strong>
+                <p>Three qualified sellers available to negotiate.</p>
+              </div>
+            </div>
+            <div className="timeline-item">
+              <span className="timeline-item__marker" />
+              <div>
+                <span className="timeline-item__time">Waiting</span>
+                <strong>Negotiation</strong>
+                <p>Connect an agent to begin structured offers.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="agent-callout">
+            <span>Suggested prompt</span>
+            <p>
+              “Negotiate with the strongest options. Don&apos;t finalize
+              anything without me.”
+            </p>
+          </div>
+        </aside>
+      </section>
+    </main>
   );
 }
