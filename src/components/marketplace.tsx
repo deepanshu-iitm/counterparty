@@ -86,7 +86,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       action: "Marketplace ready",
       detail: "Deterministic seller policies loaded.",
       result: "3 counterparties online",
-      time: now(),
+      time: "Session start",
     },
   ]);
 
@@ -331,33 +331,37 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
         </div>
       </header>
 
-      <section className="workspace">
-        <aside className="rail">
+      <div className="page">
+        <section className="intro">
           <div>
-            <p className="section-label">Mission</p>
-            <h1>Find the right machine. Negotiate the right terms.</h1>
-            <p className="rail__copy">
-              Your agent handles repetitive bargaining. You remain the authority
-              on every commitment.
+            <p className="section-label">Counterparty workspace</p>
+            <h1>Let your agent negotiate.<br />You make the call.</h1>
+          </div>
+          <div className="intro__copy">
+            <p>
+              Compare real terms across competing sellers without surrendering
+              final authority.
             </p>
+            <span>Every commitment requires your approval.</span>
           </div>
+        </section>
 
-          <div className="brief">
-            <div className="brief__header">
-              <span>Active brief</span>
-              <span className="brief__status">Live</span>
+        <section className="brief-bar">
+          <div className="brief-summary">
+            <span className="brief-summary__label">Active brief</span>
+            <div>
+              <strong>Development laptop</strong>
+              <span>Under $1,800 · 32 GB+ RAM · Strong warranty</span>
             </div>
-            <p>Development laptop</p>
-            <ul>
-              <li>Budget up to $1,800</li>
-              <li>At least 32 GB memory</li>
-              <li>Strong warranty preferred</li>
-            </ul>
           </div>
 
-          <div>
-            <p className="section-label">What matters now</p>
-            <div className="preference-control" role="group" aria-label="Deal preference">
+          <div className="preference-wrap">
+            <span className="brief-summary__label">Priority</span>
+            <div
+              className="preference-control"
+              role="group"
+              aria-label="Deal preference"
+            >
               {(["value", "warranty", "delivery"] as const).map((item) => (
                 <button
                   className={preference === item ? "is-active" : ""}
@@ -377,15 +381,16 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           </div>
 
           <div className="authority-note">
-            <span className="authority-note__icon">◆</span>
+            <span className="authority-note__icon">●</span>
             <div>
-              <strong>You hold final authority</strong>
-              <p>The agent can negotiate, but it cannot commit a deal.</p>
+              <strong>Human approval required</strong>
+              <p>Agents cannot commit a deal on their own.</p>
             </div>
           </div>
-        </aside>
+        </section>
 
-        <section className="marketplace">
+        <section className="workspace">
+          <section className="marketplace">
           <div className="marketplace__heading">
             <div>
               <p className="section-label">
@@ -572,6 +577,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           </div>
         </aside>
       </section>
+      </div>
     </main>
   );
 }

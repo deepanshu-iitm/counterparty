@@ -112,40 +112,88 @@ a:focus-visible {
   background: var(--faint);
 }
 
+.page {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 0 32px;
+}
+
+.intro {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 80px;
+  grid-template-columns: 1fr 360px;
+  padding: 64px 0 46px;
+}
+
+.intro h1 {
+  font-size: clamp(36px, 5vw, 62px);
+  font-weight: 510;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  margin: 16px 0 0;
+}
+
+.intro__copy p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.intro__copy span {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.brief-bar {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr auto auto;
+  padding: 18px 0;
+}
+
+.brief-summary {
+  align-items: center;
+  display: flex;
+  gap: 22px;
+}
+
+.brief-summary__label {
+  color: var(--faint);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brief-summary strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  margin-bottom: 3px;
+}
+
+.brief-summary div > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.preference-wrap {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
 .workspace {
   display: grid;
-  grid-template-columns: 250px minmax(520px, 1fr) 300px;
-  margin: 0 auto;
-  max-width: 1480px;
-  min-height: calc(100vh - 58px);
-}
-
-.rail,
-.marketplace,
-.activity-panel {
-  padding: 42px 30px;
-}
-
-.rail {
-  border-right: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-}
-
-.rail h1 {
-  font-size: clamp(25px, 2.2vw, 36px);
-  font-weight: 540;
-  letter-spacing: -0.045em;
-  line-height: 1.06;
-  margin: 14px 0 18px;
-}
-
-.rail__copy {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.65;
-  margin: 0;
+  gap: 64px;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  padding: 50px 0 80px;
 }
 
 .section-label {
@@ -158,69 +206,27 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.brief {
-  border-bottom: 1px solid var(--line);
-  border-top: 1px solid var(--line);
-  padding: 18px 0;
-}
-
-.brief__header {
-  align-items: center;
-  color: var(--faint);
-  display: flex;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
-  justify-content: space-between;
-  text-transform: uppercase;
-}
-
-.brief__status,
 .live-indicator {
   color: var(--accent);
   font-weight: 650;
 }
 
-.brief > p {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 18px 0 12px;
-}
-
-.brief ul {
-  color: var(--muted);
-  display: grid;
-  font-size: 11px;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.brief li::before {
-  color: var(--line-strong);
-  content: "—";
-  margin-right: 8px;
-}
-
 .preference-control {
-  border: 1px solid var(--line);
-  display: grid;
-  margin-top: 13px;
+  background: #ecece8;
+  border-radius: 6px;
+  display: flex;
+  padding: 3px;
 }
 
 .preference-control button {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--line);
+  border-radius: 4px;
   color: var(--muted);
   cursor: pointer;
-  font-size: 11px;
-  padding: 10px 12px;
-  text-align: left;
-}
-
-.preference-control button:last-child {
-  border-bottom: 0;
+  font-size: 10px;
+  padding: 7px 10px;
+  white-space: nowrap;
 }
 
 .preference-control button:hover {
@@ -229,45 +235,36 @@ a:focus-visible {
 
 .preference-control button.is-active {
   background: var(--surface);
-  color: var(--accent);
+  color: var(--ink);
   font-weight: 650;
 }
 
-.preference-control button.is-active::before {
-  content: "●";
-  font-size: 7px;
-  margin-right: 8px;
-}
-
 .authority-note {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  gap: 10px;
-  margin-top: auto;
+  gap: 8px;
 }
 
 .authority-note__icon {
-  color: var(--warning);
-  font-size: 9px;
-  line-height: 1.7;
+  color: var(--accent);
+  font-size: 7px;
 }
 
 .authority-note strong {
   display: block;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 650;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .authority-note p {
   color: var(--muted);
-  font-size: 10px;
-  line-height: 1.5;
+  font-size: 9px;
   margin: 0;
 }
 
 .marketplace {
-  background: var(--surface);
+  min-width: 0;
 }
 
 .marketplace__heading,
@@ -564,7 +561,9 @@ a:focus-visible {
 }
 
 .activity-panel {
-  border-left: 1px solid var(--line);
+  align-self: start;
+  position: sticky;
+  top: 92px;
 }
 
 .timeline {
@@ -645,14 +644,48 @@ a:focus-visible {
 }
 
 @media (max-width: 1080px) {
+  .page {
+    padding: 0 24px;
+  }
+
+  .intro {
+    gap: 40px;
+    grid-template-columns: 1fr 300px;
+  }
+
   .workspace {
-    grid-template-columns: 230px 1fr;
+    gap: 36px;
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+
+  .brief-bar {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-bar {
+    align-items: start;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .authority-note {
+    grid-column: 1 / -1;
+  }
+
+  .workspace {
+    display: block;
   }
 
   .activity-panel {
-    border-left: 0;
     border-top: 1px solid var(--line);
-    grid-column: 1 / -1;
+    margin-top: 56px;
+    padding-top: 38px;
+    position: static;
   }
 
   .timeline {
@@ -685,16 +718,34 @@ a:focus-visible {
     display: none;
   }
 
-  .workspace {
-    display: block;
+  .page {
+    padding: 0 18px;
   }
 
-  .rail,
-  .marketplace,
-  .activity-panel {
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 30px 20px;
+  .intro {
+    padding: 44px 0 32px;
+  }
+
+  .intro h1 {
+    font-size: 38px;
+  }
+
+  .brief-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .preference-wrap {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .authority-note {
+    grid-column: auto;
+  }
+
+  .workspace {
+    padding-top: 36px;
   }
 
   .spec-grid {
@@ -704,6 +755,10 @@ a:focus-visible {
 
   .timeline {
     display: block;
+  }
+
+  .timeline-item {
+    border-right: 0;
   }
 
   .approval-panel {
