@@ -83,9 +83,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
     {
       id: 1,
       actor: "SYSTEM",
-      action: "Marketplace ready",
-      detail: "Deterministic seller policies loaded.",
-      result: "3 counterparties online",
+      action: "Ready when you are",
+      detail: "Your preferences are set.",
+      result: "3 sellers available",
       time: "Session start",
     },
   ]);
@@ -128,9 +128,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       const matches = searchProducts(input);
       recordActivity(
         "AGENT",
-        "search_products",
+        "Searching for matches",
         `${input.minimumRamGb ?? "Any"} GB+ · ${input.maxPrice ? `under ${money(input.maxPrice)}` : "any budget"}`,
-        `${matches.length} qualified products`,
+        `${matches.length} matches found`,
       );
       return {
         count: matches.length,
@@ -147,9 +147,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       const product = products.find((item) => item.id === productId);
       recordActivity(
         "AGENT",
-        "start_negotiation",
+        "Contacting seller",
         product?.seller.name ?? productId,
-        existing ? "Existing negotiation returned" : "Seller opened terms",
+        existing ? "Conversation already open" : "First offer received",
       );
       return {
         negotiation,
@@ -167,7 +167,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       saveNegotiation(result.negotiation);
       recordActivity(
         "AGENT",
-        "submit_counteroffer",
+        "Making an offer",
         `${money(offer.price)} · ${offer.warrantyMonths}mo warranty`,
         result.outcome === "ACCEPTED"
           ? "Terms accepted"
@@ -186,9 +186,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       );
       recordActivity(
         "AGENT",
-        "get_negotiations",
+        "Comparing offers",
         `Human preference: ${preferenceRef.current}`,
-        `${active.length} negotiations compared`,
+        `${active.length} offers compared`,
       );
       return {
         humanPreference: preferenceRef.current,
@@ -208,9 +208,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       setAgreement(nextAgreement);
       recordActivity(
         "AGENT",
-        "prepare_agreement",
+        "Preparing your deal",
         negotiationId,
-        "Waiting for human approval",
+        "Waiting for your approval",
       );
       return {
         agreement: nextAgreement,
@@ -233,9 +233,9 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       setAgreement(result.agreement);
       recordActivity(
         result.success ? "AGENT" : "SYSTEM",
-        "commit_agreement",
+        result.success ? "Purchase completed" : "Approval needed",
         agreementId,
-        result.success ? result.transactionId : result.error,
+        result.success ? result.transactionId : "Waiting for your approval",
       );
       return result;
     },
@@ -316,17 +316,17 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           <span className="brand-mark">C</span>
           <span>Counterparty</span>
         </a>
-        <div className="topbar__center">Agent-native negotiation protocol</div>
+        <div className="topbar__center">A better way to buy</div>
         <div className="connection-status">
           <span
             className={`connection-dot connection-dot--${webMcpStatus}`}
           />
           <span aria-live="polite">
             {webMcpStatus === "ready"
-              ? "6 WebMCP tools ready"
+              ? "Agent connected"
               : webMcpStatus === "checking"
-                ? "Connecting WebMCP"
-                : "Browser preview"}
+                ? "Connecting agent"
+                : "Preview mode"}
           </span>
         </div>
       </header>
@@ -334,21 +334,21 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
       <div className="page">
         <section className="intro">
           <div>
-            <p className="section-label">Counterparty workspace</p>
+            <p className="section-label">Your buying assistant</p>
             <h1>Let your agent negotiate.<br />You make the call.</h1>
           </div>
           <div className="intro__copy">
             <p>
-              Compare real terms across competing sellers without surrendering
-              final authority.
+              Your agent compares offers and negotiates with sellers. Nothing
+              is purchased until you approve it.
             </p>
-            <span>Every commitment requires your approval.</span>
+            <span>You are always in control.</span>
           </div>
         </section>
 
         <section className="brief-bar">
           <div className="brief-summary">
-            <span className="brief-summary__label">Active brief</span>
+            <span className="brief-summary__label">Looking for</span>
             <div>
               <strong>Development laptop</strong>
               <span>Under $1,800 · 32 GB+ RAM · Strong warranty</span>
@@ -356,7 +356,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           </div>
 
           <div className="preference-wrap">
-            <span className="brief-summary__label">Priority</span>
+            <span className="brief-summary__label">Most important</span>
             <div
               className="preference-control"
               role="group"
@@ -383,8 +383,8 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           <div className="authority-note">
             <span className="authority-note__icon">●</span>
             <div>
-              <strong>Human approval required</strong>
-              <p>Agents cannot commit a deal on their own.</p>
+              <strong>You approve every purchase</strong>
+              <p>Your agent cannot buy without you.</p>
             </div>
           </div>
         </section>
@@ -394,15 +394,15 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           <div className="marketplace__heading">
             <div>
               <p className="section-label">
-                {activeNegotiations.length ? "Negotiation desk" : "Qualified matches"}
+                {activeNegotiations.length ? "Offers in progress" : "Best matches"}
               </p>
               <h2>
                 {activeNegotiations.length
-                  ? `${activeNegotiations.length} live conversations`
-                  : "Three counterparties, three strategies"}
+                  ? `${activeNegotiations.length} sellers are responding`
+                  : "Three laptops worth considering"}
               </h2>
             </div>
-            <span className="result-count">{products.length} live offers</span>
+            <span className="result-count">{products.length} sellers available</span>
           </div>
 
           {activeNegotiations.length > 0 && (
@@ -455,7 +455,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
                           }
                           type="button"
                         >
-                          Propose target terms
+                          Ask for target price
                         </button>
                       )}
                       {negotiation.status === "TERMS_ACCEPTED" && (
@@ -466,7 +466,7 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
                           }
                           type="button"
                         >
-                          Prepare agreement
+                          Review this deal
                         </button>
                       )}
                     </div>
@@ -501,13 +501,13 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
               className={`approval-panel approval-panel--${agreement.status.toLowerCase()}`}
             >
               <div>
-                <p className="section-label">Human decision required</p>
+                <p className="section-label">Your decision</p>
                 <h2>
                   {agreement.status === "COMMITTED"
-                    ? "Agreement committed"
+                    ? "Purchase complete"
                     : agreement.status === "REJECTED"
-                      ? "Agreement rejected"
-                      : "Review exact terms"}
+                      ? "Deal declined"
+                      : "Ready for your review"}
                 </h2>
                 <p className="approval-panel__id">{agreement.id} · {agreement.termsHash}</p>
               </div>
@@ -522,13 +522,13 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
                     Reject
                   </button>
                   <button className="primary-button" onClick={approve} type="button">
-                    Approve exact terms
+                    Approve this deal
                   </button>
                 </div>
               )}
               {agreement.status === "APPROVED" && (
                 <div className="approval-state">
-                  Approved. The agent may now call <code>commit_agreement</code>.
+                  Approved. Your agent can now complete the purchase.
                 </div>
               )}
               {agreement.status === "COMMITTED" && (
@@ -543,8 +543,8 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
         <aside className="activity-panel">
           <div className="activity-panel__header">
             <div>
-              <p className="section-label">Agent activity</p>
-              <h2>Auditable trail</h2>
+              <p className="section-label">Live updates</p>
+              <h2>What&apos;s happening</h2>
             </div>
             <span className="live-indicator">Live</span>
           </div>
@@ -569,10 +569,10 @@ export function Marketplace({ products }: { products: ProductWithSeller[] }) {
           </div>
 
           <div className="agent-callout">
-            <span>Suggested prompt</span>
+            <span>Try asking</span>
             <p>
-              “Find a development laptop under $1,800. Negotiate with the
-              strongest options, but don&apos;t finalize without me.”
+              “Find me the best laptop under $1,800. Get better offers, but
+              don&apos;t buy anything without me.”
             </p>
           </div>
         </aside>

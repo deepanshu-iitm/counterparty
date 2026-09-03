@@ -76,7 +76,7 @@ export function ProductCard({
             onClick={() => onNegotiate?.(product.id)}
             type="button"
           >
-            Open negotiation
+            Ask for a better offer
           </button>
         )}
       </div>
