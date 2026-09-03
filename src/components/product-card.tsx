@@ -3,6 +3,8 @@ import type { ProductWithSeller } from "@/lib/catalog/types";
 type ProductCardProps = {
   product: ProductWithSeller;
   featured?: boolean;
+  negotiationStatus?: "NEGOTIATING" | "TERMS_ACCEPTED" | "CLOSED";
+  onNegotiate?: (productId: string) => void;
 };
 
 const formatCurrency = (value: number) =>
@@ -12,7 +14,12 @@ const formatCurrency = (value: number) =>
     maximumFractionDigits: 0,
   }).format(value);
 
-export function ProductCard({ product, featured = false }: ProductCardProps) {
+export function ProductCard({
+  product,
+  featured = false,
+  negotiationStatus,
+  onNegotiate,
+}: ProductCardProps) {
   return (
     <article className={`product-card${featured ? " product-card--featured" : ""}`}>
       <div className="product-card__topline">
@@ -55,7 +62,23 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
           <span className="price-label">Listed at</span>
           <strong>{formatCurrency(product.listPrice)}</strong>
         </div>
-        <span className="negotiable-badge">Negotiable</span>
+        {negotiationStatus ? (
+          <span className="negotiable-badge">
+            {negotiationStatus === "TERMS_ACCEPTED"
+              ? "Terms accepted"
+              : negotiationStatus === "CLOSED"
+                ? "Closed"
+                : "Negotiating"}
+          </span>
+        ) : (
+          <button
+            className="text-button"
+            onClick={() => onNegotiate?.(product.id)}
+            type="button"
+          >
+            Open negotiation
+          </button>
+        )}
       </div>
     </article>
   );

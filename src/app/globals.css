@@ -104,6 +104,14 @@ a {
   width: 11px;
 }
 
+.connection-dot--checking {
+  background: var(--signal);
+}
+
+.connection-dot--unsupported {
+  background: var(--muted);
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(245px, 0.72fr) minmax(520px, 1.65fr) minmax(260px, 0.8fr);
@@ -224,6 +232,36 @@ a {
   margin: 0;
 }
 
+.preference-control {
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.preference-control button {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 10px 12px;
+  text-align: left;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.preference-control button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.preference-control button.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
 .marketplace {
   background: rgba(255, 254, 250, 0.45);
 }
@@ -253,6 +291,88 @@ a {
 .product-list {
   display: grid;
   gap: 14px;
+}
+
+.negotiation-board {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.negotiation-card {
+  background: var(--ink);
+  border-radius: 14px;
+  color: var(--surface);
+  padding: 18px;
+}
+
+.negotiation-card__heading,
+.negotiation-card__footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.negotiation-card__heading span:first-child {
+  color: #a9b0b2;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.negotiation-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 4px 0 0;
+}
+
+.status-chip {
+  border: 1px solid #555b5e;
+  border-radius: 999px;
+  color: #cfd3d4;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  padding: 5px 8px;
+  text-transform: uppercase;
+}
+
+.status-chip--terms_accepted {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.offer-terms {
+  border-bottom: 1px solid #3a3e40;
+  border-top: 1px solid #3a3e40;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 16px 0 12px;
+  padding: 13px 0;
+}
+
+.offer-terms span {
+  color: #8f979a;
+  display: block;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.offer-terms strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.negotiation-card__footer > span {
+  color: #8f979a;
+  font-size: 9px;
 }
 
 .product-card {
@@ -361,6 +481,106 @@ a {
   text-transform: uppercase;
 }
 
+.text-button,
+.primary-button,
+.secondary-button {
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 8px 11px;
+  text-transform: uppercase;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.text-button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--accent);
+}
+
+.negotiation-card .text-button {
+  border-color: #555b5e;
+  color: #d9e8e4;
+}
+
+.text-button:hover {
+  border-color: var(--accent);
+}
+
+.primary-button {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: white;
+}
+
+.primary-button:hover {
+  background: var(--accent-strong);
+}
+
+.secondary-button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.negotiation-card .primary-button {
+  background: #dcebe7;
+  border-color: #dcebe7;
+  color: var(--accent-strong);
+}
+
+.approval-panel {
+  align-items: center;
+  background: #f7efe3;
+  border: 1px solid #d8b98f;
+  border-radius: 14px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1.2fr 1fr auto;
+  margin-top: 24px;
+  padding: 20px;
+}
+
+.approval-panel--committed {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.approval-panel h2 {
+  margin-top: 5px;
+}
+
+.approval-panel__id {
+  color: var(--muted);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  margin: 7px 0 0;
+}
+
+.approval-terms {
+  display: grid;
+  gap: 3px;
+}
+
+.approval-terms strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.approval-terms span,
+.approval-state {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .activity-panel {
   border-left: 1px solid var(--line);
 }
@@ -436,6 +656,14 @@ a {
   margin: 0;
 }
 
+.timeline-item__result {
+  color: var(--accent);
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
 .agent-callout {
   background: var(--ink);
   border-radius: 14px;
@@ -481,6 +709,15 @@ a {
   .timeline-item::before {
     display: none;
   }
+
+  .approval-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .approval-actions,
+  .approval-state {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 720px) {
@@ -511,5 +748,14 @@ a {
 
   .timeline {
     grid-template-columns: 1fr;
+  }
+
+  .approval-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .approval-actions,
+  .approval-state {
+    grid-column: auto;
   }
 }
