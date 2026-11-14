@@ -41,4 +41,9 @@ next-env.d.ts
 
 # private planning notes
 /Counterparty_WebMCP_Master_Plan.md
-config.bat
+
+.env
+.env.*
+!.env.example
+.vscode/
+node_modules/
